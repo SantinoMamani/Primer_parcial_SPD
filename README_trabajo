@@ -1,0 +1,81 @@
+# DOCUMENTACION
+![Arduino](https://github.com/FrancoRama/Escritorio/assets/112288660/581dfe34-72f9-4c3d-9505-166135d39eca)
+
+# INTEGRANTES
+
+* REYNOSO Lucas
+* MAMANI Santino
+* RAMA franco
+
+# PROYECTO : CONTADOR 
+
+![Copy of Swanky Kieran-Bigery](https://github.com/FrancoRama/Escritorio/assets/112288660/37ac53d0-60a2-497d-9cd7-5472818e62f7)
+
+# DESCRIPCION
+ dos pantalla de 7 segmentos para contar hacia arriba y hacia abajo, con los botones de entrada SUBE (incremento), BAJA (disminuciÃ³n) y RESET
+# FUNCIONES PRINCIPAL 
+
+si se preciono un boton que no se preciono con anterioridad devuelve el valor de ese boton si ya se habia precionado no hace nada 
+
+
+    int keypressed(void)
+    {
+    
+    sube = digitalRead(SUBE);
+    baja = digitalRead(BAJA);
+    reset = digitalRead(RESET);
+    if(sube)
+      subePrevia = 1;
+    if(baja)
+      bajaPrevia = 1;
+    if(reset)
+      resetPrevia = 1;
+  
+  	if(sube == 0 && sube != subePrevia)
+    {
+      subePrevia = sube;
+      return SUBE;
+    }
+  
+  	if(baja == 0 && baja != bajaPrevia)
+    {
+    	bajaPrevia = baja;
+      return BAJA;
+    
+    }
+  
+  	if(reset == 0 && reset != resetPrevia)
+    {
+    	resetPrevia = reset;
+      	return RESET;
+    
+    }
+    
+    return 0;
+    }
+
+ si el digito es unidad se prende unidad , si es decena se prende decena , y si no es ninguno de los dos no prende 
+
+    void prendeDigito(int digito)
+    {
+      if(digito == UNIDAD)
+      {
+      	digitalWrite(UNIDAD, LOW);
+      	digitalWrite(DECENA, HIGH);
+        delay(TIMEDISPLAYON);
+      }
+      else if(digito == DECENA)
+      {
+      	digitalWrite(UNIDAD, HIGH);
+      	digitalWrite(DECENA, LOW);
+        delay(TIMEDISPLAYON);
+      
+      }
+      else
+      {
+      	digitalWrite(UNIDAD, HIGH);
+      	digitalWrite(DECENA, HIGH);
+      }
+    
+    }
+    
